@@ -26,11 +26,3 @@ tasks.test {
 kotlin {
     jvmToolchain(21)
 }
-
-// 한글 메소드명 허용을 위한 컴파일러 옵션 추가
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "21"
-        freeCompilerArgs = listOf("-Xallow-non-ascii-symbols")
-    }
-}
