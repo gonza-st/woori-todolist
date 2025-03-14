@@ -4,49 +4,48 @@ import java.time.LocalDate
 import kotlin.random.Random
 
 class Todo(
-    var title: String,
-    var description: String = "",
-    var done: Boolean = false,
-    var dueDate: LocalDate? = null,
+    title: String,
+    description: String? = null,
+    dueDate: LocalDate? = null,
 ) {
+    companion object {
+        const val TITLE_REQUIRED_MESSAGE = "제목을 필수로 입력해주세요"
+    }
+
     val id: Long = Random.nextLong()
-    var createdAt: LocalDate = LocalDate.now()
-    var updatedAt: LocalDate? = null
+    val createdDate: LocalDate = LocalDate.now()
+    private var updatedDate: LocalDate? = null
+    var title: String = title
+        private set
+    var description: String? = description
+        private set
+    var done: Boolean = false
+        private set
+    var dueDate: LocalDate? = dueDate
+        private set
 
     init {
-        require(title.isNotBlank()) { "제목을 필수로 입력해주세요" }
+        require(title.isNotBlank()) { TITLE_REQUIRED_MESSAGE }
     }
 
-    fun update(
-        title: String? = null,
-        description: String? = null,
-        dueDate: LocalDate? = null,
-    ): Todo {
-        val hasChanges = title != null || description != null || dueDate != null
-
-        if (!hasChanges) {
-            return this
-        }
-
-        this.title = title ?: this.title
-        this.description = description ?: this.description
-        this.dueDate = dueDate ?: this.dueDate
-        updatedAt = LocalDate.now()
-
-        return this
+    fun updateTitle(newTitle: String) {
+        require(newTitle.isNotBlank()) { TITLE_REQUIRED_MESSAGE }
+        this.title = newTitle
     }
 
-    fun toggleDone() {
+    fun updateDescription(newDescription: String?) {
+        this.description = newDescription
+    }
+
+    fun updateDueDate(newDueDate: LocalDate?) {
+        this.dueDate = newDueDate
+    }
+
+    fun updateDone() {
         done = !done
-        updateDueDate()
     }
 
-    private fun updateDueDate() {
-        dueDate =
-            if (!done) {
-                null
-            } else {
-                LocalDate.now()
-            }
+    private fun recordUpdatedDate() {
+        updatedDate = LocalDate.now()
     }
 }
