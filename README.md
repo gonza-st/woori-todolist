@@ -19,10 +19,9 @@
 - **Todo 항목 조회 (Read)**
     * 단일 Todo 항목 조회 (ID로 조회)
     * 전체 Todo 목록 조회
-    * 조건별 필터링 (완료 여부, 마감일 기준 등)
 - **Todo 항목 수정 (Update)**
     * 제목, 내용, 마감일 수정
-    * 완료 상태 토글
+    * 완료 상태 변경 (완료/미완료)
         * 상태 변경시 관련된 시간은 거기에 맞춰 업데이트
     * 수정 시간 자동 갱신
 - **Todo 항목 삭제 (Delete)**
@@ -49,13 +48,13 @@ val todo = Todo(
 )
 
 // TodoList에 추가
-todoList.add(todo)
+todoList.addTodo(todo)
 
-// 완료 상태 토글
-todoList.toggleCompleted(todo.id)
+// Todo title 변경
+todo.updateTitle(newTitle)
 
 /* 완료된 항목 모두 삭제 */
-todoList.deleteCompleted()
+todoList.deleteCompletedTodo()
 ```
 
 ## 프로젝트 구조
