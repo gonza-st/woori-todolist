@@ -28,7 +28,7 @@ class TodoList(
         todoList.removeIf { todo -> selectedTodosSet.contains(todo.id) }
     }
 
-    // TODO 수정 필요
+
     fun updateTodo(updatedTodo: Todo) {
         val index = todoList.indexOfFirst { it.id == updatedTodo.id }
 
