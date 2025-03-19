@@ -1,7 +1,9 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package org.example.model
 
 import java.time.LocalDate
-import kotlin.random.Random
+import java.util.*
 
 class Todo(
     title: String,
@@ -10,13 +12,9 @@ class Todo(
 ) {
     companion object {
         const val TITLE_REQUIRED_MESSAGE = "제목을 필수로 입력해주세요"
-
-        // 10자리 양수 ID 범위
-        private const val MIN_ID = 1000000000L // 10자리 시작 (10억)
-        private const val MAX_ID = 9999999999L // 10자리 끝 (100억 - 1)
     }
 
-    val id: Long = Random.nextLong(MIN_ID, MAX_ID + 1)
+    val id: String = UUID.randomUUID().toString()
     val createdDate: LocalDate = LocalDate.now()
     private var updatedDate: LocalDate? = null
     var title: String = title

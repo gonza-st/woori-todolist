@@ -9,7 +9,7 @@ class TodoList(
 
     fun size() = todoList.size
 
-    fun getTodoById(id: Long): Todo? = todoList.find { it.id == id }
+    fun getTodoById(id: String): Todo? = todoList.find { it.id == id }
 
     fun addTodo(todo: Todo) {
         todoList.add(todo)
@@ -19,15 +19,14 @@ class TodoList(
         todoList.removeIf { it.done }
     }
 
-    fun deleteTodoById(id: Long) {
+    fun deleteTodoById(id: String) {
         todoList.removeIf { it.id == id }
     }
 
-    fun deleteSelectedTodos(selectedTodos: List<Long>) {
+    fun deleteSelectedTodos(selectedTodos: List<String>) {
         val selectedTodosSet = selectedTodos.toSet()
         todoList.removeIf { todo -> selectedTodosSet.contains(todo.id) }
     }
-
 
     fun updateTodo(updatedTodo: Todo) {
         val index = todoList.indexOfFirst { it.id == updatedTodo.id }

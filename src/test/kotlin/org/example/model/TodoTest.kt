@@ -1,8 +1,8 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package org.example.model
 
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertNotNull
-import org.junit.Assert.assertNotEquals
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
@@ -59,10 +59,8 @@ class TodoTest {
 
     @Test
     @DisplayName("todo 생성 시 완료 여부는 false로 부여된다")
-    fun initDoneIsTrue() {
-        val doneWhenCreated = defaultTodo.done
-
-        assertEquals(doneWhenCreated, false)
+    fun initDoneIsFalse() {
+        assertFalse(defaultTodo.done)
     }
 
     @Test
@@ -71,25 +69,21 @@ class TodoTest {
         val initDone = defaultTodo.done
 
         defaultTodo.updateDone()
-        val updatedDone = defaultTodo.done
 
-        assertEquals(initDone, !updatedDone)
+        assertNotEquals(initDone, defaultTodo.done)
     }
 
     @Test
-    @DisplayName("'완료' 상태일 때 실행하면 '미완료'로 변경되고 '미완료' 상태일 때 실행하면 '완료'로 변경된다")
+    @DisplayName("완료 여부를 변경하면 현재 '완료' 상태인 경우 '미완료'로, '미완료' 상태인 경우 '완료'로 변경된다")
     fun toggleDone() {
         val doneWhenCreated = defaultTodo.done
+        assertFalse(doneWhenCreated)
 
         defaultTodo.updateDone()
-        val doneWhenCompleted = defaultTodo.done
+        assertTrue(defaultTodo.done)
 
         defaultTodo.updateDone()
-        val doneWhenUncompleted = defaultTodo.done
-
-        assertEquals(doneWhenCreated, false)
-        assertEquals(doneWhenCompleted, !doneWhenCreated)
-        assertEquals(doneWhenUncompleted, !doneWhenCompleted)
+        assertFalse(defaultTodo.done)
     }
 
     @Test
@@ -99,9 +93,9 @@ class TodoTest {
         val newTitle = "출근하기"
 
         defaultTodo.updateTitle(newTitle)
-        val updatedTitle = defaultTodo.title
 
-        assertNotEquals(initTitle, updatedTitle)
+        assertNotEquals(initTitle, defaultTodo.title)
+        assertEquals(newTitle, defaultTodo.title)
     }
 
     @Test
@@ -110,15 +104,14 @@ class TodoTest {
         val newDescription = "우유 유통기한은 일주일 이상 남은 걸로 사기"
 
         defaultTodo.updateDescription(newDescription)
-        val updatedDescription = defaultTodo.description
 
-        assertNotEquals(initDescription, updatedDescription)
+        assertNotEquals(initDescription, defaultTodo.description)
     }
 
     @Test
     fun `마감일을 변경할 수 있다`() {
         val initDueDate = defaultTodo.dueDate
-        val newDueDate: LocalDate? = LocalDate.of(2028, 3, 13)
+        val newDueDate: LocalDate = LocalDate.of(2028, 3, 13)
 
         defaultTodo.updateDueDate(newDueDate)
         val updatedDueDate = defaultTodo.dueDate
